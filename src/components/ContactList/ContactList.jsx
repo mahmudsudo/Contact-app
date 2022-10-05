@@ -1,18 +1,27 @@
-import React from 'react'
-
-export const ContactList = ({contacts}) => {
+import React from 'react';
+import {ContactCard} from "./../ContactCard/ContactCard";
+import { Link } from 'react-router-dom';
+export const ContactList = ({contacts, getContId}) => {
+const del = (id) =>{
+  getContId(id)
+}
     const renderCont = contacts.map((contact) => {
         return (
-   <div className="item">
-    <div className="content">
-        <div className="header">{contact.name}</div>
-        <div>{contact.email}</div>
-   </div>
-   <i className="trash alternate outline icon"></i>
-   </div>
+   <ContactCard contact={contact} key={contact.id}  handler={del}/>
   )
     })
-  return <div className="ui celled list">
+  return ( 
+    <div >
+      <h2>Contact List
+        <Link to="/add">
+        <button className="ui button blue right floated " >
+          Add
+        </button>
+        </Link>
+      </h2>
+  <div className="ui celled list">
     {renderCont}
   </div>
+  </div>
+  )
 }
